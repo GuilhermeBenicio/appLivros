@@ -36,32 +36,30 @@ export default function Home({navigation}){
 
     return(
         <View>
-        <Button children={"Adicionar"} onPress={()=>{navigation.navigate('AddLivroScreen')}}></Button>
+        <Button children={"Adicionar"} onPress={() => { navigation.navigate('AddLivroScreen') }}></Button>
         <FlatList
-         data={dados}
-         renderItem={({item})=>
-         <Card style={estilo.cardEstilo}>
-            <Card.Title title={item.titulo}/>
-            <Card.Cover resizeMode="center" source={{ uri: `https://bibliotecaetecmaua.azurewebsites.net/Content/Images/${item.imagem}` }}></Card.Cover>
-
-            <Card.Content>
-                <Text>{item.autorPrincipal}</Text>
-                <Text>{item.editora}</Text>
-                <Button children={"Visualizar"} onPress={()=>{navigation.navigate('ViewLivroScreen',{id: item.id})}}></Button>
-            </Card.Content>     
-            
-            
-         </Card>
-            
-         }
-
-         keyExtractor={(item)=>item.id.toString()}
-         
-         >
-
-        </FlatList>
-        
-        </View>
+          data={dados}
+          renderItem={({ item }) => {
+            if (item.titulo) {
+              return (
+                <Card style={estilo.cardEstilo}>
+                  <Card.Title title={<Text style={estilo.titulo}>{item.titulo}</Text>} />
+                  <Card.Cover resizeMode="center" source={{ uri: `https://bibliotecaetecmaua.azurewebsites.net/Content/Images/${item.imagem}` }}></Card.Cover>
+                  <Card.Content>
+                    <Text>{item.autorPrincipal}</Text>
+                    <Text>{item.editora}</Text>
+                    <Button children={"Visualizar"} onPress={() => { navigation.navigate('ViewLivroScreen', { id: item.id }) }}></Button>
+                  </Card.Content>
+                </Card>
+              );
+            } else {
+              return null;
+            }
+          }}
+          keyExtractor={(item) => item.id.toString()}
+        />
+      </View>
+      
 
     );
 }
@@ -71,6 +69,12 @@ const estilo = StyleSheet.create(
 {
     cardEstilo: {
         margin:5,
+    },
+
+    titulo: {
+      fontSize: 20,
+      fontWeight: "bold",
+      textAlign: "center"
     }
 }
 );

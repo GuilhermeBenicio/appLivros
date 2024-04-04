@@ -15,7 +15,7 @@ export default function ViewLivro({ route }) {
       const response = await axios.get(`https://bibliotecaetecmaua.azurewebsites.net/api/LivrosSedeApi/${id}`);
       setLivro(response.data);
     } catch (error) {
-      console.error("Erro ao buscar livro:", error);
+      console.error("Erro ao buscar livro testando:", error);
     }
   };
 
